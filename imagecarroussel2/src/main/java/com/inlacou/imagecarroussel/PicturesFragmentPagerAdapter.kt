@@ -4,6 +4,13 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.PagerAdapter
+import com.inlacou.imagecarroussel.utilities.Constans.CURRENT_PAGE
+import com.inlacou.imagecarroussel.utilities.Constans.MAX_PAGES
+import com.inlacou.imagecarroussel.utilities.Constans.POSITION_DISPLAY
+import com.inlacou.imagecarroussel.utilities.Constans.SHOW_TOP_SHADOW
+import com.inlacou.imagecarroussel.utilities.Constans.URL
+import com.inlacou.imagecarroussel.model.ItemElement
+import com.inlacou.imagecarroussel.types.PositionDisplayMode
 
 import java.util.ArrayList
 
@@ -13,7 +20,7 @@ import java.util.ArrayList
 class PicturesFragmentPagerAdapter @JvmOverloads
 constructor(
 		fragmentManager: FragmentManager,
-		private val urls: ArrayList<String>,
+		private val urls: ArrayList<ItemElement>,
 		private val positionDisplay: PositionDisplayMode,
 		private val showTopShadow: Boolean,
 		private val infinite: Boolean,
@@ -31,7 +38,7 @@ constructor(
 
 	init {
 		for (i in urls.indices.reversed()) {
-			if (urls[i].isEmpty()) urls.removeAt(i)
+			if (urls[i].url.isNullOrEmpty()) urls.removeAt(i)
 		}
 		pageCount = urls.size
 		calculateMaxValue()
@@ -59,11 +66,11 @@ constructor(
 		val virtualPos = if(infinite) position%pageCount else position
 		val myFragment = PageImageFragment()
 		val data = Bundle()
-		data.putInt("current_page", virtualPos)
-		data.putInt("max_pages", pageCount)
-		data.putBoolean("showTopShadow", showTopShadow)
-		data.putInt("positionDisplay", positionDisplay.ordinal)
-		data.putString("url", urls[virtualPos])
+		data.putInt(CURRENT_PAGE, virtualPos)
+		data.putInt(MAX_PAGES, pageCount)
+		data.putBoolean(SHOW_TOP_SHADOW, showTopShadow)
+		data.putInt(POSITION_DISPLAY, positionDisplay.ordinal)
+		data.putSerializable(URL, urls[virtualPos])
 		myFragment.onClickListener = { onClick?.invoke(virtualPos) }
 		myFragment.arguments = data
 		return myFragment

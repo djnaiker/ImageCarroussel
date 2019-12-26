@@ -5,6 +5,11 @@ import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import com.inlacou.imagecarroussel.model.ImageCarouselMdl
+import android.os.StrictMode.setThreadPolicy
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.StrictMode
+
 
 class ImageCarousel @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
 	: FrameLayout(context, attrs, defStyleAttr) {
@@ -30,6 +35,9 @@ class ImageCarousel @JvmOverloads constructor(context: Context, attrs: Attribute
 		val rootView = View.inflate(context, R.layout.view_imagecarousel, this)
 		viewPager = findViewById(R.id.pager)
 		initialize(rootView)
+
+		val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+		StrictMode.setThreadPolicy(policy)
 	}
 
 	private fun initialize(view: View) {

@@ -1,4 +1,4 @@
-package com.inlacou.imagecarroussel
+package com.inlacou.imagecarroussel.model
 
 data class AutoSwipeMode(
 		var active: Boolean = false,

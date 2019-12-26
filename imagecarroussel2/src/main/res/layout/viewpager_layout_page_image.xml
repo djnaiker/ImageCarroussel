@@ -2,13 +2,19 @@
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
-	android:background="@color/blue_500"
+	android:background="#2196F3"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 	<ImageView
 		android:id="@+id/image"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent" />
+
+	<FrameLayout
+		android:id="@+id/video"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:visibility="gone"/>
 	<ImageView
 		android:id="@+id/shadow"
 		android:layout_width="match_parent"

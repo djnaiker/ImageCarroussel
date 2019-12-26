@@ -1,19 +1,20 @@
 package com.inlacou.imagecarrousselapp
 
 import android.os.Bundle
+import android.os.StrictMode
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.View
 import android.view.Menu
 import android.view.MenuItem
-import com.inlacou.imagecarroussel.AutoSwipeMode
+import com.inlacou.imagecarroussel.model.AutoSwipeMode
 
 import com.inlacou.imagecarroussel.ImageCarousel
-import com.inlacou.imagecarroussel.ImageCarouselMdl
-import com.inlacou.imagecarroussel.PositionDisplayMode
+import com.inlacou.imagecarroussel.model.ImageCarouselMdl
+import com.inlacou.imagecarroussel.model.ItemElement
+import com.inlacou.imagecarroussel.types.PositionDisplayMode
 
 import java.util.ArrayList
 
@@ -31,12 +32,14 @@ class CollapsingActivity : AppCompatActivity() {
 		collapsingToolbarLayout.title = "Collapsing"
 		val imagecarroussel = findViewById<ImageCarousel>(R.id.imagecarroussel)
 
-		val urls = ArrayList<String>()
+		val urls = ArrayList<ItemElement>()
 
-		urls.add("http://assets.pokemon.com/assets/cms2/img/pokedex/full//739.png")
-		urls.add("https://pro-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Togepi-Pokemon-Go.png")
-		urls.add("http://assets.pokemon.com/assets/cms2/img/pokedex/full//748.png")
-		urls.add("https://vignette3.wikia.nocookie.net/pokemon/images/b/b4/393Piplup_Pokemon_Ranger_Guardian_Signs.png/revision/latest?cb=20150109224144")
+
+
+		urls.add(ItemElement("https://i.pinimg.com/originals/fa/37/c2/fa37c29afdfb42efad366e45fbe10033.png"))
+		urls.add(ItemElement("https://pro-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Togepi-Pokemon-Go.png"))
+		urls.add(ItemElement("http://assets.pokemon.com/assets/cms2/img/pokedex/full//748.png"))
+		urls.add(ItemElement("https://vignette3.wikia.nocookie.net/pokemon/images/b/b4/393Piplup_Pokemon_Ranger_Guardian_Signs.png/revision/latest?cb=20150109224144"))
 
 		imagecarroussel.model = ImageCarouselMdl(
 				fragmentManager = supportFragmentManager,

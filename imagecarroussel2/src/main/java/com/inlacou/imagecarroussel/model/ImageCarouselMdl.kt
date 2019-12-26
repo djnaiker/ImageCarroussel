@@ -1,10 +1,12 @@
-package com.inlacou.imagecarroussel
+package com.inlacou.imagecarroussel.model
 
 import android.support.v4.app.FragmentManager
+import com.inlacou.imagecarroussel.types.ItemType
+import com.inlacou.imagecarroussel.types.PositionDisplayMode
 
 data class ImageCarouselMdl @JvmOverloads constructor(
 		val fragmentManager: FragmentManager?,
-		val urls: List<String>,
+		val urls: List<ItemElement>,
 		val positionDisplay: PositionDisplayMode = PositionDisplayMode.NONE,
 		val showTopShadow: Boolean = false,
 		val autoSwipe: AutoSwipeMode = AutoSwipeMode(),

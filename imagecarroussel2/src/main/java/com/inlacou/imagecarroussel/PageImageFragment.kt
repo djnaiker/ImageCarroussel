@@ -4,18 +4,30 @@ import android.content.res.Resources
 import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.inlacou.imagecarroussel.PositionDisplayMode.*
-import com.inlacou.imagecarroussel.R.id.shadow
+import com.inlacou.imagecarroussel.model.ItemElement
+import com.inlacou.imagecarroussel.types.ItemType
+import com.inlacou.imagecarroussel.utilities.Constans.CURRENT_PAGE
+import com.inlacou.imagecarroussel.utilities.Constans.MAX_PAGES
+import com.inlacou.imagecarroussel.utilities.Constans.POSITION_DISPLAY
+import com.inlacou.imagecarroussel.utilities.Constans.SHOW_TOP_SHADOW
+import com.inlacou.imagecarroussel.utilities.Constans.URL
+import com.inlacou.imagecarroussel.types.PositionDisplayMode.*
+import com.inlacou.imagecarroussel.types.PositionDisplayMode
 
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import android.os.StrictMode.setThreadPolicy
+
+
 
 /**
  * Created by inlacou on 3/05/16.
@@ -25,12 +37,13 @@ class PageImageFragment : Fragment() {
 	private var llIndicator: LinearLayout? = null
 	private var shadow: ImageView? = null
 	private var image: ImageView? = null
+	private var video: FrameLayout? = null
 	private var positionText: TextView? = null
 	var onClickListener: ((Int) -> Unit)? = null
 
 	private var mCurrentPage: Int = 0
 	private var maxPages: Int = 0
-	private var url: String = "something"
+	private var item: ItemElement? = null
 	private var showTopShadow: Boolean = true
 	private var positionDisplay: PositionDisplayMode = NONE
 
@@ -41,16 +54,17 @@ class PageImageFragment : Fragment() {
 		val data = arguments
 
 		/** Getting integer data of the key current_page from the bundle  */
-		maxPages = data!!.getInt("max_pages", 0)
-		mCurrentPage = data.getInt("current_page", 0)
-		url = data.getString("url", "something")
-		showTopShadow = data.getBoolean("showTopShadow", true)
-		positionDisplay = values()[data.getInt("positionDisplay")]
+		maxPages = data!!.getInt(MAX_PAGES, 0)
+		mCurrentPage = data.getInt(CURRENT_PAGE, 0)
+		item = data.getSerializable(URL) as ItemElement?
+		showTopShadow = data.getBoolean(SHOW_TOP_SHADOW, true)
+		positionDisplay = values()[data.getInt(POSITION_DISPLAY)]
 	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		val v = inflater.inflate(R.layout.viewpager_layout_page_image, container, false)
 		image = v.findViewById(R.id.image)
+		video = v.findViewById(R.id.video)
 		shadow = v.findViewById(R.id.shadow)
 		positionText = v.findViewById(R.id.position_text)
 		llIndicator = v.findViewById(R.id.indicator)
@@ -83,25 +97,22 @@ class PageImageFragment : Fragment() {
 		val size = Point()
 		activity?.windowManager?.defaultDisplay?.getSize(size)
 
-		if (url.isNotEmpty())
-			Picasso.get().load(url)
-					//.resize(size.x, 500)
+		if(item!!.type == ItemType.IMAGE){
+			Picasso.get()
+					.load(item!!.url)
 					.fit()
 					.centerCrop()
-					.into(image, object : Callback {
-						override fun onSuccess() {
-							/*Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
-		                    Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-		                        public void onGenerated(Palette palette) {
-		                            positionText.setTextColor(palette.getVibrantColor(getResources().getColor(R.color.colorPrimary)));
-		                        }
-		                    });*/
-						}
+					.into(image)
+		}else if(item!!.type == ItemType.VIDEO){
 
-						override fun onError(e: Exception) {
+			image!!.visibility = View.GONE
+			var videoLayout = VideoLayout(context!!)
+			videoLayout.setGravity(VideoLayout.VGravity.centerCrop)
+			videoLayout.setIsLoop(true)
+			videoLayout.setPathOrUrl(item!!.video!!)
+			video!!.addView(videoLayout)
+		}
 
-						}
-					})
 		return v
 	}
 
