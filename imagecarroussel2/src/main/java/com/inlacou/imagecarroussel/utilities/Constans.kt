@@ -7,5 +7,6 @@ object Constans {
     var URL = "url"
     var SHOW_TOP_SHADOW = "showTopShadow"
     var POSITION_DISPLAY = "positionDisplay"
+    var ENABLE_SOUND = "enableSound"
 
 }

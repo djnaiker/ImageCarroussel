@@ -17,5 +17,6 @@ data class ImageCarouselMdl @JvmOverloads constructor(
 		val onPageShown: ((Int) -> Unit)? = null,
 		val pagePaddingLeft: Int? = null,
 		val pagePaddingRight: Int? = null,
-		val pageMargin: Int? = null
+		val pageMargin: Int? = null,
+		val enableSound: Boolean = false
 )

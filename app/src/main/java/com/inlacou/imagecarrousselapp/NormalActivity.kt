@@ -30,7 +30,7 @@ class NormalActivity : AppCompatActivity() {
 
 		val urls = ArrayList<ItemElement>()
 
-		urls.add(ItemElement("https://vignette3.wikia.nocookie.net/pokemon/images/b/b4/393Piplup_Pokemon_Ranger_Guardian_Signs.png/revision/latest?cb=20150109224144", "http://int.bvapps.es/amc/test1.mp4"))
+		urls.add(ItemElement("https://vignette3.wikia.nocookie.net/pokemon/images/b/b4/393Piplup_Pokemon_Ranger_Guardian_Signs.png/revision/latest?cb=20150109224144", "https://int.bvapps.es/amc/test1.mp4"))
 		urls.add(ItemElement("https://pro-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Togepi-Pokemon-Go.png"))
 		urls.add(ItemElement("http://assets.pokemon.com/assets/cms2/img/pokedex/full//748.png"))
 		urls.add(ItemElement("https://vignette3.wikia.nocookie.net/pokemon/images/b/b4/393Piplup_Pokemon_Ranger_Guardian_Signs.png/revision/latest?cb=20150109224144"))

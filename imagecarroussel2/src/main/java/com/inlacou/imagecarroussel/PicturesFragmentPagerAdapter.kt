@@ -11,6 +11,7 @@ import com.inlacou.imagecarroussel.utilities.Constans.SHOW_TOP_SHADOW
 import com.inlacou.imagecarroussel.utilities.Constans.URL
 import com.inlacou.imagecarroussel.model.ItemElement
 import com.inlacou.imagecarroussel.types.PositionDisplayMode
+import com.inlacou.imagecarroussel.utilities.Constans.ENABLE_SOUND
 
 import java.util.ArrayList
 
@@ -24,6 +25,7 @@ constructor(
 		private val positionDisplay: PositionDisplayMode,
 		private val showTopShadow: Boolean,
 		private val infinite: Boolean,
+		private val enableSound: Boolean = false,
 		private val onClick: ((Int) -> Unit)? = null)
 	: android.support.v4.app.FragmentStatePagerAdapter(fragmentManager) {
 
@@ -70,6 +72,7 @@ constructor(
 		data.putInt(MAX_PAGES, pageCount)
 		data.putBoolean(SHOW_TOP_SHADOW, showTopShadow)
 		data.putInt(POSITION_DISPLAY, positionDisplay.ordinal)
+		data.putBoolean(ENABLE_SOUND, enableSound)
 		data.putSerializable(URL, urls[virtualPos])
 		myFragment.onClickListener = { onClick?.invoke(virtualPos) }
 		myFragment.arguments = data
